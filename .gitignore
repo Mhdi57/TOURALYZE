@@ -16,9 +16,15 @@ SmartTourism.ML/__pycache__/
 # Logs
 *.log
 
-# Database (optional - remove if you want to track it)
-# SmartTourism.API/SmartTourism.db
+# SQLite Databases
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
 
-# OS files
+# OS files and local shortcuts
 .DS_Store
 Thumbs.db
+Unity Hub
+
