@@ -1,287 +1,216 @@
-# Touralyze
+<div align="center">
 
-Touralyze is a smart tourism sentiment analysis platform designed to analyze Arabic tourism reviews and provide meaningful insights through sentiment analysis and interactive visualizations.
+# TOURALYZE
 
----
+### AI-Powered Arabic Tourism Sentiment Analysis Platform
+
+**Graduation Project — King Khalid University**
+
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8-512BD4?logo=dotnet&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Python_3.10+-009688?logo=fastapi&logoColor=white)
+![CAMeLBERT](https://img.shields.io/badge/Model-CAMeLBERT-F9A03C)
+
+</div>
 
 ## Overview
 
-The tourism and hospitality sector relies heavily on customer feedback to evaluate destination appeal, service quality, and visitor satisfaction. However, analyzing thousands of unstructured Arabic reviews across diverse regional and colloquial dialects presents a notable challenge for destination managers, researchers, and tourism authorities.
+TOURALYZE is an end-to-end tourism analytics platform built to transform large volumes of unstructured Arabic visitor reviews into clear, actionable insights. It collects reviews from Google Maps, processes Saudi dialect and colloquial Arabic with a fine-tuned transformer model, classifies sentiment, and presents the results through an interactive bilingual dashboard.
 
-**Touralyze** solves this problem by delivering an end-to-end analytical solution customized for Arabic tourism content. The platform gathers tourist feedback from Google Maps, processes colloquial expressions using a fine-tuned Arabic transformer model, classifies sentiment polarities, and visualizes key metrics through an interactive bilingual dashboard.
-
----
+The platform supports tourism authorities, destination managers, researchers, and hospitality stakeholders in understanding visitor satisfaction, recurring themes, and destination performance.
 
 ## Key Features
 
-- **Arabic Sentiment Analysis**: Evaluates Arabic tourism reviews using fine-tuned transformer models tailored for Saudi dialect nuances.
-- **Positive / Neutral / Negative Classification**: Categorizes feedback into three distinct emotional polarities alongside statistical confidence scores.
-- **Tourism Review Analysis**: Extracts key topics, calculates average ratings, and computes sentiment proportions across visitor reviews.
-- **Interactive Dashboard**: Features a 3-level hierarchical navigation tree (Region &rarr; City &rarr; Report) covering the 13 administrative regions of Saudi Arabia.
-- **Charts & Visualizations**:
-  - Sentiment distribution breakdown via Recharts (Donut and Bar charts).
-  - High-frequency keyword extraction displayed as a dynamic D3.js word cloud.
-  - Interactive review explorer with sentiment-based filtering.
-- **Google Maps Integration**:
-  - Automated review ingestion via Selenium WebDriver.
-  - Interactive destination map embeds directly inside generated reports.
-- **Authentication & Authorization**:
-  - Secure user registration and login powered by ASP.NET Core JWT Bearer authentication.
-  - Password hashing utilizing BCrypt.
-- **OTP Verification**:
-  - Time-limited (5-minute) 6-digit OTP delivery via email for account registration and password recovery.
-- **Arabic and English Interface**:
-  - Full bilingual localization with persistent language selection.
-  - Automatic RTL (Right-to-Left) and LTR (Left-to-Right) layout adaptation.
-- **Report Management**:
-  - Deterministic report generation with SHA256-based deduplication caching.
-  - Comprehensive, printable report views with statistical summaries.
-- **Gemini Integration**:
-  - Integrated AI tourism advisor powered by Google Gemini.
-  - Generates analytical summaries from destination statistics and answers custom queries.
-  - Resilient multi-model fallback chain (`gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.5-flash`) with automatic retry and backoff handling.
+- **Arabic sentiment analysis:** Classifies reviews as positive, neutral, or negative with confidence scores.
+- **Saudi dialect support:** Uses a fine-tuned CAMeLBERT model designed for Saudi Google Maps reviews.
+- **Automated review collection:** Ingests Google Maps reviews through Selenium WebDriver.
+- **Tourism analytics:** Calculates sentiment proportions, average ratings, frequent keywords, and key topics.
+- **Interactive dashboard:** Provides region, city, and report-level navigation across Saudi Arabia's 13 administrative regions.
+- **Data visualization:** Includes Recharts charts, D3.js word clouds, and sentiment-based review filtering.
+- **Bilingual experience:** Supports Arabic and English with automatic RTL/LTR layout adaptation.
+- **Secure accounts:** Uses JWT authentication, BCrypt password hashing, and time-limited email OTP verification.
+- **Report management:** Generates printable analytical reports with SHA256-based deduplication caching.
+- **AI assistant:** Uses Google Gemini to summarize destination statistics and answer analytical questions.
 
----
+## System Architecture
 
-## Screenshots
-
-### Dashboard
-<!-- Add dashboard screenshot here -->
-
-### Sentiment Analysis
-<!-- Add sentiment analysis screenshot here -->
-
-### AI Assistant & Reports
-<!-- Add AI assistant and reports screenshot here -->
-
----
+```mermaid
+flowchart LR
+    A[Google Maps Reviews] --> B[Python ML Service]
+    B --> C[CAMeLBERT Sentiment Model]
+    C --> D[ASP.NET Core API]
+    D --> E[(SQLite Database)]
+    D --> F[React Dashboard]
+    D --> G[Gemini AI Assistant]
+```
 
 ## Tech Stack
 
 ### Frontend
-- **Framework**: React 19
-- **Language**: TypeScript
-- **Build Tool**: Vite 6
-- **Routing**: React Router DOM (HashRouter)
-- **Data Visualization**: Recharts, D3.js
-- **Icons**: Lucide React
-- **Styling**: Tailwind CSS & Vanilla CSS
+
+- React 19 and TypeScript
+- Vite 6
+- React Router DOM
+- Recharts and D3.js
+- Tailwind CSS and Vanilla CSS
+- Lucide React
 
 ### Backend
-- **Framework**: ASP.NET Core 8 Web API
-- **Language**: C# (.NET 8)
-- **Data Access**: Entity Framework Core 8
-- **Authentication**: JWT Bearer (`Microsoft.AspNetCore.Authentication.JwtBearer`)
-- **Security**: BCrypt.Net-Next
-- **API Documentation**: Swagger / OpenAPI (Swashbuckle)
 
-### AI / Machine Learning
-- **Sentiment Model**: Fine-tuned CAMeLBERT (`whrivt/camelbert-saudi-gmaps-sentiment`) for Saudi dialect Arabic reviews
-- **Frameworks**: PyTorch, Hugging Face Transformers
-- **API Service**: FastAPI & Uvicorn (Python 3.10+)
-- **Text Preprocessing**: 5-stage Arabic normalization pipeline (diacritics removal, tatweel stripping, dialect letter unification)
-- **Generative AI**: Google Gemini REST API (`GoogleGeminiService`)
+- ASP.NET Core 8 Web API
+- C# and .NET 8
+- Entity Framework Core 8
+- JWT Bearer authentication
+- BCrypt.Net-Next
+- Swagger / OpenAPI
 
-### Database
-- **Database**: SQLite (`SmartTourism.db`) with Entity Framework Core SQLite Provider
+### AI and Machine Learning
 
-### External Services
-- **Google Maps**: Review extraction via Selenium WebDriver and embedded destination maps
-- **Google Gemini API**: AI-powered report insights and conversational assistant
-- **SMTP Email Service**: Delivery of 6-digit verification and password-reset OTP codes
+- Fine-tuned CAMeLBERT: `whrivt/camelbert-saudi-gmaps-sentiment`
+- PyTorch and Hugging Face Transformers
+- FastAPI and Uvicorn
+- Five-stage Arabic text-normalization pipeline
+- Google Gemini REST API
 
----
+### Data and External Services
 
-## Project Architecture
-
-```mermaid
-flowchart TD
-    User([User / Browser])
-    
-    subgraph Frontend [Frontend Layer]
-        ReactApp["React 19 + TypeScript (Vite)<br/>Interactive Dashboard & Visualizations"]
-    end
-    
-    subgraph Backend [Backend API Layer]
-        API["ASP.NET Core 8 Web API<br/>Authentication, Reports & Controllers"]
-        GeminiService["GoogleGeminiService<br/>AI Assistant Integration"]
-    end
-    
-    subgraph MLService [AI / ML Microservice]
-        FastAPIApp["FastAPI Service (Python)<br/>CAMeLBERT Sentiment Model & Selenium Scraper"]
-    end
-    
-    subgraph DataAndExternal [Database & External Services]
-        Database[("SQLite Database<br/>(SmartTourism.db via EF Core)")]
-        GeminiAPI["Google Gemini API<br/>(Generative AI Assistant)"]
-        GoogleMaps["Google Maps<br/>(Review Scraping & Embeds)"]
-        SMTPServer["SMTP Server<br/>(Email OTP Delivery)"]
-    end
-
-    User --> ReactApp
-    ReactApp -->|HTTP REST / JWT| API
-    API -->|Entity Framework Core| Database
-    API -->|HTTP REST / JSON| FastAPIApp
-    API -->|REST API with Key| GeminiAPI
-    API -->|SMTP| SMTPServer
-    FastAPIApp -->|Selenium Scraping| GoogleMaps
-```
-
----
+- SQLite
+- Google Maps and Selenium WebDriver
+- SMTP email service
+- Google Gemini API
 
 ## Project Structure
 
 ```text
-smart-tourism-sentiment-analyzer/
-├── App.tsx                      # Root application layout, pages, and routes
-├── index.html                   # HTML entrypoint
-├── package.json                 # Frontend dependencies and scripts
-├── vite.config.ts               # Vite configuration
+TOURALYZE/
+├── App.tsx                    # Application layout and routes
 ├── src/
-│   ├── components/              # Shared UI components (LanguageSwitcher, ReportAIChat)
-│   ├── context/                 # State providers (AuthContext, LanguageContext)
-│   ├── pages/                   # Application pages (Settings, Dashboard views)
-│   ├── services/                # API integration services (reportApi, aiChatService)
-│   ├── translations/            # Bilingual translation dictionaries (ar.ts, en.ts)
-│   ├── types.ts                 # TypeScript type definitions and data contracts
-│   └── utils/                   # Geographic mapping utilities (regionMapping.ts)
-├── SmartTourism.API/            # ASP.NET Core 8 Web API
-│   ├── Controllers/             # API Controllers (AiController, AuthController, ReportsController)
-│   ├── Data/                    # AppDbContext and database configurations
-│   ├── DTOs/                    # Data Transfer Objects
-│   ├── Models/                  # Entity models (User, Report, Review)
-│   ├── Services/                # Core services (GoogleGeminiService, EmailService)
-│   ├── Program.cs               # Service registration and middleware pipeline
-│   └── appsettings.json         # Base configuration (secrets excluded)
-└── SmartTourism.ML/             # Python ML Sentiment Microservice
-    ├── main.py                  # FastAPI application & CAMeLBERT inference pipeline
-    └── requirements.txt         # Python dependencies
+│   ├── components/            # Shared UI components
+│   ├── context/               # Authentication and language state
+│   ├── pages/                 # Application pages and dashboards
+│   ├── services/              # API integration services
+│   ├── translations/          # Arabic and English dictionaries
+│   └── utils/                 # Geographic mapping utilities
+├── SmartTourism.API/          # ASP.NET Core Web API
+│   ├── Controllers/
+│   ├── Data/
+│   ├── DTOs/
+│   ├── Models/
+│   └── Services/
+└── SmartTourism.ML/           # Python sentiment-analysis service
+    ├── main.py
+    └── requirements.txt
 ```
-
----
 
 ## Getting Started
 
 ### Prerequisites
 
-Ensure you have the following installed on your system:
-- **Node.js**: v18.0.0 or higher
-- **npm**: v9.0.0 or higher
-- **.NET SDK**: v8.0 or higher
-- **Python**: v3.10 or higher
-- **Google Chrome**: Required for Selenium headless browser review scraping
+- Node.js 18 or later
+- npm 9 or later
+- .NET SDK 8 or later
+- Python 3.10 or later
+- Google Chrome for Selenium-based review collection
 
 ### Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/lq-p3/sentiment-analysis.git
-   cd sentiment-analysis
-   ```
+1. Clone the repository:
 
-2. **Install frontend dependencies:**
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/Mhdi57/TOURALYZE.git
+cd TOURALYZE
+```
 
-3. **Set up the Python ML microservice:**
-   ```bash
-   cd SmartTourism.ML
-   python3 -m venv venv
-   source venv/bin/activate       # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   cd ..
-   ```
+2. Install the frontend dependencies:
 
-4. **Restore backend dependencies:**
-   ```bash
-   cd SmartTourism.API
-   dotnet restore
-   cd ..
-   ```
+```bash
+npm install
+```
 
----
+3. Set up the Python ML service:
 
-## Configuration
+```bash
+cd SmartTourism.ML
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+cd ..
+```
 
-> [!IMPORTANT]
-> Secrets, API keys, and sensitive tokens must **NEVER** be stored in `appsettings.json` or committed to source control.
-
-### Local Development (.NET User Secrets)
-
-For local development in ASP.NET Core, use the [.NET Secret Manager](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets) to keep sensitive keys outside the project tree:
+4. Restore the backend dependencies:
 
 ```bash
 cd SmartTourism.API
+dotnet restore
+cd ..
+```
 
-# Configure your Google Gemini API key
+## Configuration
+
+Never commit API keys, tokens, passwords, or cryptographic secrets. For local development, configure secrets with the .NET Secret Manager:
+
+```bash
+cd SmartTourism.API
 dotnet user-secrets set "GeminiApiKey" "<YOUR_GEMINI_API_KEY>"
-
-# Configure your JWT signing key
 dotnet user-secrets set "JwtSettings:Key" "<YOUR_SECURE_JWT_SECRET>"
 ```
 
-### Production Configuration
-
-In staging or production environments, supply sensitive configurations via environment variables:
-
-- `GeminiApiKey`: Your production Google Gemini API key.
-- `JwtSettings__Key` (or `JwtSettings:Key`): Your production JWT signing secret.
-
----
+For staging or production, use environment variables such as `GeminiApiKey` and `JwtSettings__Key`.
 
 ## Running the Application
 
-To run the complete platform, start each of the three services:
+Start the three services in separate terminals.
 
-### 1. Start the Python ML Service
+### 1. ML Service
+
 ```bash
 cd SmartTourism.ML
-source venv/bin/activate       # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 uvicorn main:app --host 127.0.0.1 --port 8000 --reload
 ```
-*The ML service will be listening on `http://127.0.0.1:8000`.*
 
-### 2. Start the ASP.NET Core Backend
+### 2. Backend API
+
 ```bash
 cd SmartTourism.API
 dotnet run
 ```
-*The API will start at `http://localhost:5165` (Swagger UI accessible at `http://localhost:5165/swagger`).*
 
-### 3. Start the Frontend Development Server
+The Swagger interface is available at `http://localhost:5165/swagger`.
+
+### 3. Frontend
+
 ```bash
 npm run dev
 ```
-*The React application will be available at `http://localhost:5173`.*
 
----
+The React application is available at `http://localhost:5173`.
 
 ## Security
 
-- **Credential Isolation**: All API keys, tokens, and cryptographic secrets are strictly excluded from source control.
-- **Externalized Secret Management**: The backend is designed to consume sensitive configurations through .NET User Secrets during local development and environment variables in production.
-- **Ignored Database Files**: Local SQLite database files (`*.db`, `*.db-shm`, `*.db-wal`) are excluded via `.gitignore` to prevent committing runtime application data.
-- **Stateless Authentication**: Access control relies on signed JSON Web Tokens (JWT) using HMAC validation, combined with BCrypt hashing for user credentials.
-
----
+- Secrets and credentials must remain outside source control.
+- Local database files are excluded through `.gitignore`.
+- Authentication uses signed JWTs and BCrypt password hashing.
+- Production secrets should be supplied through secure environment variables or a secrets manager.
 
 ## Future Improvements
 
-- Add streaming response support for real-time interaction with the Gemini AI assistant.
-- Extend sentiment classification to additional regional Arabic dialect datasets.
-- Support direct export of generated sentiment reports to PDF and CSV formats.
-- Provide a unified Docker Compose configuration for multi-container deployment.
+- Add streaming responses to the Gemini assistant.
+- Expand sentiment classification to more regional Arabic dialects.
+- Export reports directly to PDF and CSV.
+- Add Docker Compose for unified multi-service deployment.
+- Add automated testing and CI/CD workflows.
 
----
+## Project and Attribution
 
-## Author
+TOURALYZE was developed collaboratively as a graduation project at **King Khalid University**. Team members contributed across the platform's research, design, development, AI, and integration work.
 
-**Ali Alqahtani**  
-GitHub: [https://github.com/lq-p3](https://github.com/lq-p3)
+**Mahdi Aldossari** — Project team member and maintainer of this portfolio repository  
+[GitHub](https://github.com/Mhdi57) · [LinkedIn](https://www.linkedin.com/in/mahdi-aldossari)
 
----
+This repository is a maintained fork of the [original project repository](https://github.com/lq-p3/sentiment-analysis). The upstream repository and commit history preserve the project's original attribution and contributions.
 
 ## License
 
-No license has currently been specified for this project.
+No open-source license has currently been specified. All rights are reserved by the project contributors.
